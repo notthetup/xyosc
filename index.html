@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>XY Osc</title>
+</head>
+<script>
+	window.AudioContext = window.AudioContext || window.webkitAudioContext;
+	var context = new AudioContext();
+	var osc = context.createOscillator();
+	var osc2 = context.createOscillator();
+	var amGain = context.createGain();
+	osc.type = 'square';
+	osc.connect(amGain);
+	osc2.connect(amGain.gain);
+	osc.start(0);
+	osc2.start(0);
+	amGain.connect(context.destination);
+	window.addEventListener('mousemove', function(evt){
+		console.log(evt.y, evt.x);
+		osc.frequency.value = evt.x + 200;
+		osc2.frequency.value = evt.y/20;
+	})
+</script>
+</html>
