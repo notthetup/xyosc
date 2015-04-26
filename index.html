@@ -5,6 +5,9 @@
 </head>
 <script>
 	window.AudioContext = window.AudioContext || window.webkitAudioContext;
+
+	var started = false;
+
 	var context = new AudioContext();
 	var osc = context.createOscillator();
 	var osc2 = context.createOscillator();
@@ -12,11 +15,15 @@
 	osc.type = 'square';
 	osc.connect(amGain);
 	osc2.connect(amGain.gain);
-	osc.start(0);
-	osc2.start(0);
+
 	amGain.connect(context.destination);
 	window.addEventListener('mousemove', function(evt){
 		console.log(evt.y, evt.x);
+		if (!started){
+			osc.start(0);
+			osc2.start(0);
+			started = true;
+		}
 		osc.frequency.value = evt.x + 200;
 		osc2.frequency.value = evt.y/20;
 	})
