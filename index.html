@@ -26,6 +26,17 @@
 		}
 		osc.frequency.value = evt.x + 200;
 		osc2.frequency.value = evt.y/20;
-	})
+	});
+
+	window.addEventListener('touchmove', function(evt){
+		console.log(evt.y, evt.x);
+		if (!started){
+			osc.start(0);
+			osc2.start(0);
+			started = true;
+		}
+		osc.frequency.value = evt.x + 200;
+		osc2.frequency.value = evt.y/20;
+	});
 </script>
 </html>
